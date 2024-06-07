@@ -67,7 +67,8 @@
               </li>
             </ul>
             <p class="navbar-text navbar-right">
-              <span th:text="${administratorName}">山田太郎</span
+              <span th:text="${session.administratorName + 'さん'}"
+                >山田太郎</span
               >さんこんにちは！ &nbsp;&nbsp;&nbsp;
               <a
                 href="../administrator/login.html"
@@ -169,7 +170,10 @@
                   <tr>
                     <th nowrap>給料</th>
                     <td>
-                      <span th:text="${employee.salary + '円'}">400000円</span>
+                      <span
+                        th:utext="${#numbers.formatInteger(employee.salary, 0, 'COMMA') + '円'}"
+                        >400000円</span
+                      >
                     </td>
                   </tr>
                   <tr>
