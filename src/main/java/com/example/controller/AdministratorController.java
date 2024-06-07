@@ -89,9 +89,16 @@ public class AdministratorController {
 		if(!administrator.getPassword().equals(administrator.getConfirmPassword())){
 			result.rejectValue("confirmPassword", "error.confirmPassword", "パスワードが一致しません");
 		}
+    
+		//すでに存在するメールアドレスかをチェック
+		if( !administratorService.canInsertMailAddress(administrator.getMailAddress())){
+			result.rejectValue("mailAddress", "error.mailAddress", "すでに使用されているメールアドレスです");
+		}
+    
 		if(result.hasErrors()){
 			return toInsert(form);
 		}
+    
 		administratorService.insert(administrator);
 		return "redirect:/";
 	}
@@ -122,6 +129,7 @@ public class AdministratorController {
 			redirectAttributes.addFlashAttribute("errorMessage", "メールアドレスまたはパスワードが不正です。");
 			return "redirect:/";
 		}
+		session.setAttribute("administratorName", administrator.getName());
 		return "redirect:/employee/showList";
 	}
 
