@@ -30,6 +30,19 @@ public class AdministratorService {
 	}
 
 	/**
+	 * メールアドレスを検索し，存在しなければtrueを返す.
+	 *
+	 * @param mailaddress 確認するメールアドレス
+	 * @return 挿入可能なら true
+	 */
+	public boolean canInsertMailAddress(String mailaddress){
+		if(administratorRepository.findByMailAddress(mailaddress) == null)
+			return true;
+		else
+			return false;
+	}
+
+	/**
 	 * ログインをします.
 	 * 
 	 * @param mailAddress メールアドレス
