@@ -57,10 +57,7 @@
                   <div class="row">
                     <div class="col-sm-12">
                       <label for="name"> 氏名: </label>
-                      <label
-                        th:errors="*{name}"
-                        class="error-messages"
-                      >
+                      <label th:errors="*{name}" class="error-messages">
                         氏名を入力してください
                       </label>
                       <input
@@ -81,10 +78,7 @@
                   <div class="row">
                     <div class="col-sm-12">
                       <label for="mailAddress"> メールアドレス: </label>
-                      <label
-                        th:errors="*{mailAddress}"
-                        class="error-messages"
-                      >
+                      <label th:errors="*{mailAddress}" class="error-messages">
                         メールアドレスを入力してください
                       </label>
                       <input
@@ -105,10 +99,7 @@
                   <div class="row">
                     <div class="col-sm-12">
                       <label for="password"> パスワード: </label>
-                      <label
-                        th:errors="*{password}"
-                        class="error-messages"
-                      >
+                      <label th:errors="*{password}" class="error-messages">
                         パスワードを入力してください
                       </label>
                       <input
@@ -118,6 +109,30 @@
                         class="form-control"
                         placeholder="password"
                         th:field="*{password}"
+                        th:errorclass="error-input"
+                        value="xxxxxxxx"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <!-- 確認用パスワード -->
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <label for="confirmPassword"> 確認用パスワード: </label>
+                      <label
+                        th:errors="*{confirmPassword}"
+                        class="error-messages"
+                      >
+                        パスワードを入力してください
+                      </label>
+                      <input
+                        type="password"
+                        name="confirmPassword"
+                        id="confirmPassword"
+                        class="form-control"
+                        placeholder="password"
+                        th:field="*{confirmPassword}"
                         th:errorclass="error-input"
                         value="xxxxxxxx"
                       />
