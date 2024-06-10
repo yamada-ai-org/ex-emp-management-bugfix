@@ -1,6 +1,8 @@
 package com.example.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
@@ -49,15 +51,31 @@ public class EmployeeController {
 	@GetMapping("/showList")
 	public String showList(
 			@RequestParam(name = "query", defaultValue = "") String query,
+			@RequestParam(name = "p", defaultValue = "1") String p,
 			Model model
 		) {
-		List<Employee> employeeList = employeeService.searchByNameLike(query);
+		//　指定がなければ1にする
+		int page;
+		try{
+			page = Integer.parseInt(p==null?"1":p);
+		} catch (Exception e){
+			page = 1;
+		}
+		int totalPages = employeeService.getTotalPages(query);
+		System.out.println(totalPages);
+		List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+				.boxed()
+				.toList();
+		List<Employee> employeeList = employeeService.fetchEmployeeListPaging(page, query);
 		// 該当者が存在しない
 		if(employeeList.size() == 0){
 			employeeList = employeeService.showList();
 			model.addAttribute("NotExistEmployee", true);
 		}
 		model.addAttribute("employeeList", employeeList);
+		model.addAttribute("pageNumbers", pageNumbers);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("query", query);
 		return "employee/list";
 	}
 

@@ -22,6 +22,9 @@ public class EmployeeService {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
+	/**1ページあたりの表示件数**/
+	private static Integer PAGING_LIMIT = 10;
+
 	/**
 	 * 従業員情報を全件取得します.
 	 * 
@@ -34,6 +37,16 @@ public class EmployeeService {
 
 	public List<Employee> searchByNameLike(String name) {
 		return employeeRepository.findByNameLike(name);
+	}
+
+	public List<Employee> fetchEmployeeListPaging(Integer p, String name){
+		int offset = (p-1)*PAGING_LIMIT;
+		return employeeRepository.findByNameLikeWithPagination(name, PAGING_LIMIT, offset);
+	}
+
+	public int getTotalPages(String name){
+		List<Employee> employees = employeeRepository.findByNameLikeWithPagination(name, null, null);
+		return (employees.size()/PAGING_LIMIT) + (employees.size()%PAGING_LIMIT == 0 ? 0 : 1);
 	}
 
 	/**

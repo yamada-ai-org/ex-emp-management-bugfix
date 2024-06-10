@@ -109,6 +109,40 @@
         </form>
       </div>
 
+      <!-- ページの描画 -->
+      <nav aria-label="Page navigation employee" class="text-center">
+        <ul class="pagination justify-content-center">
+          <li class="page-item">
+            <a
+              th:if="${currentPage}>1"
+              class="page-link"
+              th:href="@{/employee/showList?query=__${query}__&p=__${currentPage-1}__}"
+              aria-label="Previous"
+            >
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item" th:each="pageNumber : ${pageNumbers}">
+            <a
+              class="page-link"
+              th:href="@{/employee/showList?query=__${query}__&p=__${pageNumber}__}"
+              th:text="${pageNumber}"
+              >1</a
+            >
+          </li>
+          <li class="page-item">
+            <a
+              th:if="${#lists.size(pageNumbers)-currentPage}>=1"
+              class="page-link"
+              th:href="@{/employee/showList?query=__${query}__&p=__${currentPage+1}__}"
+              aria-label="Next"
+            >
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
       <!-- table -->
       <div class="row">
         <div
