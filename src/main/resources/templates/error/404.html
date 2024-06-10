@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th=“http://www.thymeleaf.org”>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ページが見つかりません</title>
+    <link rel="stylesheet" href="path/to/your/bootstrap.css"> <!-- 適切なパスに変更してください -->
+    <style>
+        .error-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .error-code {
+            font-size: 72px;
+            font-weight: bold;
+        }
+        .error-message {
+            font-size: 24px;
+        }
+        .error-description {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container error-container">
+        <div class="row">
+            <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-12 col-xs-12">
+                <div class="error-code">404</div>
+                <div class="error-message">ページが見つかりません</div>
+                <div class="error-description">
+                    お探しのページは存在しないか、移動した可能性があります。
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
