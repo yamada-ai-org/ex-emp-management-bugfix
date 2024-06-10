@@ -90,6 +90,25 @@
         </li>
       </ol>
 
+      <!-- 従業員検索 -->
+      <div style="margin-bottom: 20px">
+        <form th:action="@{/employee/showList}" method="get">
+          <div class="container-fluid">
+            <div class="text-center">
+              <label th:if="${NotExistEmployee}" class="error-messages">
+                1件も見つかりませんでした
+              </label>
+            </div>
+            <div class="row">
+              <div class="col-xs-3"></div>
+              <input class="col-xs-4" type="text" name="query" />
+              <button class="submit col-xs-2">検索</button>
+              <div class="col-xs-3"></div>
+            </div>
+          </div>
+        </form>
+      </div>
+
       <!-- table -->
       <div class="row">
         <div

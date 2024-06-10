@@ -3,14 +3,12 @@ package com.example.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.domain.Employee;
 import com.example.form.UpdateEmployeeForm;
@@ -49,8 +47,16 @@ public class EmployeeController {
 	 * @return 従業員一覧画面
 	 */
 	@GetMapping("/showList")
-	public String showList(Model model) {
-		List<Employee> employeeList = employeeService.showList();
+	public String showList(
+			@RequestParam(name = "query", defaultValue = "") String query,
+			Model model
+		) {
+		List<Employee> employeeList = employeeService.searchByNameLike(query);
+		// 該当者が存在しない
+		if(employeeList.size() == 0){
+			employeeList = employeeService.showList();
+			model.addAttribute("NotExistEmployee", true);
+		}
 		model.addAttribute("employeeList", employeeList);
 		return "employee/list";
 	}
