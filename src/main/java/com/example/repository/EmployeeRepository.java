@@ -58,6 +58,37 @@ public class EmployeeRepository {
 	}
 
 	/**
+	 * 従業員を名前で曖昧検索して取得します.
+	 *
+	 * @param name 従業員名
+	 * @return 該当する従業員一覧 該当する従業員が存在しない場合はサイズ0件の従業員一覧を返しま
+	 */
+	public List<Employee> findByNameLike(String name){
+		String sql = """
+				SELECT 
+					id,
+					name,
+					image,
+					gender,
+					hire_date,
+					mail_address,
+					zip_code,
+					address,
+					telephone,
+					salary,
+					characteristics,
+					dependents_count 
+				FROM employees 
+				WHERE 
+					name LIKE :name
+				ORDER BY hire_date				
+				""";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("name", "%"+name+"%");
+		return  template.query(sql, param, EMPLOYEE_ROW_MAPPER);
+
+	}
+
+	/**
 	 * 主キーから従業員情報を取得します.
 	 * 
 	 * @param id 検索したい従業員ID
