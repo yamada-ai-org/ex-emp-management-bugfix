@@ -101,7 +101,12 @@
             </div>
             <div class="row">
               <div class="col-xs-3"></div>
-              <input class="col-xs-4" type="text" name="query" />
+              <input
+                class="col-xs-4"
+                type="text"
+                name="query"
+                id="autocomplete"
+              />
               <button class="submit col-xs-2">検索</button>
               <div class="col-xs-3"></div>
             </div>
@@ -157,5 +162,6 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="../../static/js/bootstrap.min.js"></script>
+    <script th:src="@{/js/auto.js}"></script>
   </body>
 </html>
