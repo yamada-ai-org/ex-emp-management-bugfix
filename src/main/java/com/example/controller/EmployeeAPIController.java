@@ -21,7 +21,6 @@ public class EmployeeAPIController {
 
     @GetMapping("/search")
     public List<String> searchAPI(@RequestParam String query){
-        System.out.println(query);
         List<Employee> employeeList = employeeService.searchByNameLike(query);
         return employeeList.stream()
                 .map(Employee::getName)
