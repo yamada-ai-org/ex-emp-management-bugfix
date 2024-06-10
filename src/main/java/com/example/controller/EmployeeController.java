@@ -47,23 +47,10 @@ public class EmployeeController {
 	 * @return 従業員一覧画面
 	 */
 	@GetMapping("/showList")
-	public String showList(Model model) {
-		List<Employee> employeeList = employeeService.showList();
-		model.addAttribute("employeeList", employeeList);
-		return "employee/list";
-	}
-
-	/**
-	 * 従業員を検索した結果を表示します.
-	 *
-	 * @param query 検索する名前
-	 * @param model リクエストスコープ
-	 * @return 従業員一覧画面
-	 */
-	@GetMapping("/search")
-	public String search(
-			@RequestParam String query,
-			Model model){
+	public String showList(
+			@RequestParam(name = "query", defaultValue = "") String query,
+			Model model
+		) {
 		List<Employee> employeeList = employeeService.searchByNameLike(query);
 		// 該当者が存在しない
 		if(employeeList.size() == 0){
