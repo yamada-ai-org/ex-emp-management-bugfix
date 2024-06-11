@@ -89,6 +89,51 @@ public class EmployeeRepository {
 	}
 
 	/**
+	 * 10件ずつの検索結果を返す.
+	 *
+	 * @param name 検索する名前
+	 * @param limit リミット
+	 * @param offset オフセット
+	 * @return 検索結果の一覧(limit, offset が null の場合は検索した全件を取得)
+	 */
+	public List<Employee> findByNameLikeWithPagination(String name, Integer limit, Integer offset) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("""
+                SELECT 
+                    id,
+                    name,
+                    image,
+                    gender,
+                    hire_date,
+                    mail_address,
+                    zip_code,
+                    address,
+                    telephone,
+                    salary,
+                    characteristics,
+                    dependents_count 
+                FROM employees 
+                """);
+
+		MapSqlParameterSource params = new MapSqlParameterSource();
+
+		if (name != null && !name.isEmpty()) {
+			sql.append("WHERE name LIKE :name ");
+			params.addValue("name", "%" + name + "%");
+		}
+
+		sql.append("ORDER BY hire_date ");
+
+		if (limit != null && offset != null) {
+			sql.append("LIMIT :limit OFFSET :offset");
+			params.addValue("limit", limit);
+			params.addValue("offset", offset);
+		}
+
+		return template.query(sql.toString(), params, EMPLOYEE_ROW_MAPPER);
+	}
+
+	/**
 	 * 主キーから従業員情報を取得します.
 	 * 
 	 * @param id 検索したい従業員ID
